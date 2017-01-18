@@ -15,8 +15,8 @@ import javax.swing.JOptionPane;
 
 public class JavaMailApp implements Runnable {
     
-    private final String email = "metaserecompensas@gmail.com";
-    private final String senha = "TP-PM.123";
+    private final String email; // preencher o email
+    private final String senha; // preencher a senha
     private final String emailUsuario;
     private static final Object lock = new Object();
     
@@ -38,7 +38,7 @@ public class JavaMailApp implements Runnable {
         user = select.enviarDados(emailUsuario);
         
         Properties props = new Properties();
-        /** Par‚metros de conex„o com servidor Gmail */
+        /** Par√¢metros de conex√£o com servidor Gmail */
         props.put("mail.smtp.host", "smtp.gmail.com");
         props.put("mail.smtp.socketFactory.port", "465");
         props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
@@ -52,23 +52,23 @@ public class JavaMailApp implements Runnable {
                 }
             });
         
-       /** Ativa Debug para sess„o */
+       /** Ativa Debug para sess√£o */
        session.setDebug(true);
        try {
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress(email)); //Remetente
 
-            Address[] toUser = InternetAddress //Destinat·rio(s)
+            Address[] toUser = InternetAddress //Destinat√°rio(s)
                             .parse(emailUsuario);  
             message.setRecipients(Message.RecipientType.TO, toUser);
-            message.setSubject("RecuperaÁ„o de senha: Metas e Recompensas.");//Assunto
+            message.setSubject("Recupera√ß√£o de senha: Metas e Recompensas.");//Assunto
             message.setText("Prezado(a) " + user.getNome() + ", \n\n" +
-                "A senha cadastrada no aplicativo Metas e Recompensas È: " +
-                user.getSenha() + ".\n\n" + "Lembramos que seu nome de usu·rio È: " 
+                "A senha cadastrada no aplicativo Metas e Recompensas √©: " +
+                user.getSenha() + ".\n\n" + "Lembramos que seu nome de usu√°rio √©: " 
                 + user.getUsername() + "\n\n" + "Obrigado por utilizar nosso aplicativo." +
-                "\n\n Se vocÍ n„o se lembra de ter recuperado sua senha, favor desconsiderar"
+                "\n\n Se voc√™ n√£o se lembra de ter recuperado sua senha, favor desconsiderar"
                 + "este e-mail." + "\n\n" + "Equipe Metas e Recompensas.");
-            /**MÈtodo para enviar a mensagem criada*/
+            /**M√©todo para enviar a mensagem criada*/
             Transport.send(message);
             JOptionPane.showMessageDialog(null, "Mensagem enviada.");
         } catch (MessagingException e) {
